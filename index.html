@@ -3,56 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Аудиокниги</title>
-
+<title>TSHH Audiobooks</title>
 <style>
 body{
-    margin:0;
-    background:#111;
-    color:white;
-    font-family:Arial,sans-serif;
-    text-align:center;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#090014;
+  color:white;
 }
-
-.container{
-    max-width:500px;
-    margin:auto;
-    padding:20px;
+.app{
+  max-width:480px;
+  margin:auto;
+  padding:18px;
 }
-
-.cover{
-    width:100%;
-    border-radius:20px;
+.hero{
+  border-radius:24px;
+  overflow:hidden;
+  background:#16002b;
+  box-shadow:0 0 35px #7b2cff;
 }
-
+.hero img{
+  width:100%;
+  display:block;
+}
 h1{
-    margin-top:20px;
+  margin:18px 0 4px;
+  font-size:30px;
 }
-
+.subtitle{
+  color:#c9a7ff;
+  margin-bottom:22px;
+}
+.card{
+  background:linear-gradient(135deg,#1c0035,#24004d);
+  border:1px solid #7b2cff;
+  border-radius:20px;
+  padding:16px;
+  margin-bottom:14px;
+  box-shadow:0 0 18px rgba(255,0,200,.25);
+}
+.book-title{
+  font-size:20px;
+  font-weight:bold;
+}
+.book-desc{
+  color:#d8c8ff;
+  font-size:14px;
+  margin:8px 0 14px;
+}
+button{
+  width:100%;
+  border:0;
+  border-radius:16px;
+  padding:14px;
+  font-size:16px;
+  font-weight:bold;
+  color:white;
+  background:linear-gradient(90deg,#ff2bd6,#4cc9ff);
+}
 audio{
-    width:100%;
-    margin-top:20px;
+  width:100%;
+  margin-top:14px;
+}
+.footer{
+  text-align:center;
+  color:#8f7bb5;
+  font-size:12px;
+  margin-top:25px;
 }
 </style>
 </head>
-
 <body>
 
-<div class="container">
+<div class="app">
 
-<img class="cover"
-src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800"
-alt="Обложка">
+  <div class="hero">
+    <img src="logo.png" alt="TSHH">
+  </div>
 
-<h1>Название аудиокниги</h1>
+  <h1>TSHH Audiobooks</h1>
+  <div class="subtitle">Бесплатные аудиокниги в озвучке TSHH</div>
 
-<p>Глава 1</p>
+  <div class="card">
+    <div class="book-title">Тестовая аудиокнига</div>
+    <div class="book-desc">Глава 1. Пример плеера для проверки приложения.</div>
+    <button onclick="playAudio()">▶ Слушать</button>
+    <audio id="player" controls>
+      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+  </div>
 
-<audio controls>
-<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
+  <div class="card">
+    <div class="book-title">Скоро здесь будет новая книга</div>
+    <div class="book-desc">Сюда можно добавить обложку, описание и главы.</div>
+    <button>Скоро</button>
+  </div>
+
+  <div class="footer">TSHH · audio stories</div>
 
 </div>
+
+<script>
+function playAudio(){
+  document.getElementById("player").play();
+}
+</script>
 
 </body>
 </html>
