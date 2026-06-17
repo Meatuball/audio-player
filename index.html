@@ -51,18 +51,25 @@ h1{
   font-size:14px;
   margin:8px 0 14px;
 }
-button{
+.chapter{
   width:100%;
   border:0;
-  border-radius:16px;
-  padding:14px;
-  font-size:16px;
+  border-radius:14px;
+  padding:13px;
+  margin-top:10px;
+  font-size:15px;
   font-weight:bold;
   color:white;
   background:linear-gradient(90deg,#ff2bd6,#4cc9ff);
 }
-a{
-  text-decoration:none;
+audio{
+  width:100%;
+  margin-top:15px;
+}
+.now{
+  color:#c9a7ff;
+  font-size:14px;
+  margin-top:12px;
 }
 .footer{
   text-align:center;
@@ -85,22 +92,55 @@ a{
 
   <div class="card">
     <div class="book-title">Охотник хочет жить спокойно</div>
-    <div class="book-desc">Глава 49. Неожиданная доброта</div>
+    <div class="book-desc">Выберите главу для прослушивания</div>
 
-    <a href="https://disk.yandex.ru/d/S1Osfo5U119JPA" target="_blank">
-      <button>🎧 Слушать главу</button>
-    </a>
-  </div>
+    <div id="chapters"></div>
 
-  <div class="card">
-    <div class="book-title">Скоро здесь будет новая книга</div>
-    <div class="book-desc">Сюда можно добавить обложку, описание и главы.</div>
-    <button>Скоро</button>
+    <div class="now" id="nowPlaying">Сейчас ничего не играет</div>
+
+    <audio id="player" controls></audio>
   </div>
 
   <div class="footer">TSHH · audio stories</div>
 
 </div>
+
+<script>
+const chapters = [
+  {
+    title: "Глава 49. Неожиданная доброта",
+    yandex: "https://disk.yandex.ru/d/S1Osfo5U119JPA"
+  }
+];
+
+const chaptersBox = document.getElementById("chapters");
+const player = document.getElementById("player");
+const nowPlaying = document.getElementById("nowPlaying");
+
+chapters.forEach((chapter, index) => {
+  const button = document.createElement("button");
+  button.className = "chapter";
+  button.innerText = "▶ " + chapter.title;
+  button.onclick = () => playChapter(index);
+  chaptersBox.appendChild(button);
+});
+
+async function playChapter(index){
+  const chapter = chapters[index];
+
+  nowPlaying.innerText = "Загружаю: " + chapter.title;
+
+  const apiUrl = "https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key=" + encodeURIComponent(chapter.yandex);
+
+  const response = await fetch(apiUrl);
+  const data = await response.json();
+
+  player.src = data.href;
+  player.play();
+
+  nowPlaying.innerText = "Сейчас играет: " + chapter.title;
+}
+</script>
 
 </body>
 </html>
