@@ -5,84 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TSHH Audiobooks</title>
 <style>
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#090014;
-  color:white;
-}
-.app{
-  max-width:480px;
-  margin:auto;
-  padding:18px;
-}
-.hero{
-  border-radius:24px;
-  overflow:hidden;
-  background:#16002b;
-  box-shadow:0 0 35px #7b2cff;
-}
-.hero img{
-  width:100%;
-  display:block;
-}
-h1{
-  margin:18px 0 4px;
-  font-size:30px;
-}
-.subtitle{
-  color:#c9a7ff;
-  margin-bottom:22px;
-}
-.card{
-  background:linear-gradient(135deg,#1c0035,#24004d);
-  border:1px solid #7b2cff;
-  border-radius:20px;
-  padding:16px;
-  margin-bottom:14px;
-  box-shadow:0 0 18px rgba(255,0,200,.25);
-}
-.book-title{
-  font-size:20px;
-  font-weight:bold;
-}
-.book-desc{
-  color:#d8c8ff;
-  font-size:14px;
-  margin:8px 0 14px;
-}
-.chapter{
-  width:100%;
-  border:0;
-  border-radius:14px;
-  padding:13px;
-  margin-top:10px;
-  font-size:15px;
-  font-weight:bold;
-  color:white;
-  background:linear-gradient(90deg,#ff2bd6,#4cc9ff);
-}
-audio{
-  width:100%;
-  margin-top:15px;
-}
-.now{
-  color:#c9a7ff;
-  font-size:14px;
-  margin-top:12px;
-}
-.footer{
-  text-align:center;
-  color:#8f7bb5;
-  font-size:12px;
-  margin-top:25px;
-}
+body{margin:0;font-family:Arial,sans-serif;background:#090014;color:white}
+.app{max-width:480px;margin:auto;padding:18px}
+.hero{border-radius:24px;overflow:hidden;background:#16002b;box-shadow:0 0 35px #7b2cff}
+.hero img{width:100%;display:block}
+h1{margin:18px 0 4px;font-size:30px}
+.subtitle{color:#c9a7ff;margin-bottom:22px}
+.card{background:linear-gradient(135deg,#1c0035,#24004d);border:1px solid #7b2cff;border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:0 0 18px rgba(255,0,200,.25)}
+.book-title{font-size:20px;font-weight:bold}
+.book-desc,.now{color:#d8c8ff;font-size:14px;margin:8px 0 14px}
+.chapter{width:100%;border:0;border-radius:14px;padding:13px;margin-top:10px;font-size:15px;font-weight:bold;color:white;background:linear-gradient(90deg,#ff2bd6,#4cc9ff)}
+audio{width:100%;margin-top:15px}
+.footer{text-align:center;color:#8f7bb5;font-size:12px;margin-top:25px}
 </style>
 </head>
 <body>
 
 <div class="app">
-
   <div class="hero">
     <img src="logo.png" alt="TSHH">
   </div>
@@ -92,25 +31,26 @@ audio{
 
   <div class="card">
     <div class="book-title">Охотник хочет жить спокойно</div>
-    <div class="book-desc">Выберите главу для прослушивания</div>
+    <div class="book-desc">Выберите главу</div>
 
     <div id="chapters"></div>
 
     <div class="now" id="nowPlaying">Сейчас ничего не играет</div>
-
-    <audio id="player" controls></audio>
+    <audio id="player" controls controlsList="nodownload"></audio>
   </div>
 
   <div class="footer">TSHH · audio stories</div>
-
 </div>
 
 <script>
+const baseUrl = "https://moneiqzmczvsevwohpjd.supabase.co/storage/v1/object/public/audio/";
+
 const chapters = [
-  {
-    title: "Глава 49. Неожиданная доброта",
-    yandex: "https://disk.yandex.ru/d/S1Osfo5U119JPA"
-  }
+  { title: "Глава 49. Неожиданная доброта", file: "hunter%2049.mp3" },
+  { title: "Глава 50", file: "hunter%2050.mp3" },
+  { title: "Глава 51", file: "hunter%2051.mp3" },
+  { title: "Глава 52", file: "hunter%2052.mp3" },
+  { title: "Глава 53", file: "hunter%2053.mp3" }
 ];
 
 const chaptersBox = document.getElementById("chapters");
@@ -125,19 +65,10 @@ chapters.forEach((chapter, index) => {
   chaptersBox.appendChild(button);
 });
 
-async function playChapter(index){
+function playChapter(index){
   const chapter = chapters[index];
-
-  nowPlaying.innerText = "Загружаю: " + chapter.title;
-
-  const apiUrl = "https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key=" + encodeURIComponent(chapter.yandex);
-
-  const response = await fetch(apiUrl);
-  const data = await response.json();
-
-  player.src = data.href;
+  player.src = baseUrl + chapter.file;
   player.play();
-
   nowPlaying.innerText = "Сейчас играет: " + chapter.title;
 }
 </script>
