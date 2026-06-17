@@ -61,9 +61,8 @@ button{
   color:white;
   background:linear-gradient(90deg,#ff2bd6,#4cc9ff);
 }
-audio{
-  width:100%;
-  margin-top:14px;
+a{
+  text-decoration:none;
 }
 .footer{
   text-align:center;
@@ -85,12 +84,12 @@ audio{
   <div class="subtitle">Бесплатные аудиокниги в озвучке TSHH</div>
 
   <div class="card">
-    <div class="book-title">Тестовая аудиокнига</div>
-    <div class="book-desc">Глава 1. Пример плеера для проверки приложения.</div>
-    <button onclick="playAudio()">▶ Слушать</button>
-    <audio id="player" controls>
-      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    </audio>
+    <div class="book-title">Охотник хочет жить спокойно</div>
+    <div class="book-desc">Глава 49. Неожиданная доброта</div>
+
+    <a href="https://disk.yandex.ru/d/S1Osfo5U119JPA" target="_blank">
+      <button>🎧 Слушать главу</button>
+    </a>
   </div>
 
   <div class="card">
@@ -102,12 +101,6 @@ audio{
   <div class="footer">TSHH · audio stories</div>
 
 </div>
-
-<script>
-function playAudio(){
-  document.getElementById("player").play();
-}
-</script>
 
 </body>
 </html>
